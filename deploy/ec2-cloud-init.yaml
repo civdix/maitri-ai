@@ -1,0 +1,33 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+write_files:
+  - path: /etc/docker/daemon.json
+    permissions: "0644"
+    content: |
+      {
+        "log-driver": "json-file",
+        "log-opts": {
+          "max-size": "50m",
+          "max-file": "3"
+        }
+      }
+
+runcmd:
+  - curl -fsSL https://get.docker.com | sh
+  - usermod -aG docker ubuntu
+  - systemctl enable docker
+  - systemctl start docker
+  - apt-get install -y git
+  - mkdir -p /opt/maitri
+  - cd /opt/maitri
+  - git clone https://github.com/civdix/maitri-ai.git .
+  - bash backend/scripts/download_models.sh || true
+  - docker compose up -d --build
+
+final_message: |
+  Maitri AI setup finished. Access:
+  - Backend: http://<EC2_PUBLIC_IP>:8000/docs
+  - Frontend: http://<EC2_PUBLIC_IP>:5173
+  If GPU was configured, set USE_CUDA=true and rebuild backend using requirements-gpu.txt.

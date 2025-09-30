@@ -1,0 +1,6 @@
+node_modules/
+frontend/node_modules/
+backend/data/
+backend/models/
+.env
+.DS_Store

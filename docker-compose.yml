@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  api:
+    build: ./backend
+    env_file: .env
+    volumes:
+      - ./backend/models:/app/models
+      - ./backend/data:/app/data
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ollama
+    # devices:
+    #   - /dev/snd:/dev/snd
+    # GPU (optional):
+    # device_requests:
+    #   - driver: nvidia
+    #     count: 1
+    #     capabilities: ["gpu"]
+
+  frontend:
+    build: ./frontend
+    env_file: .env
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+
+  ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+volumes:
+  ollama_models:

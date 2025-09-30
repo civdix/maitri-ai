@@ -1,0 +1,16 @@
+:root { --ok:#16a34a; --warn:#f59e0b; --crit:#ef4444; --bg:#0b1220; --card:#111827; --text:#e5e7eb;}
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui, Arial; background: var(--bg); color: var(--text); }
+.app { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.grid { display:grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+.card { background: var(--card); padding: 16px; border-radius: 10px; }
+.row { display:flex; align-items:center; gap:10px; }
+.btn { background:#2563eb; border:0; color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; }
+.list { display:grid; gap:10px; }
+.kpi { display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; }
+.badge { padding: 2px 8px; border-radius:999px; font-size:12px; }
+.badge.ok{ background: #122; border: 1px solid var(--ok); }
+.badge.warn{ background:#221; border: 1px solid var(--warn); }
+.badge.crit{ background:#211; border: 1px solid var(--crit); }
+.avatarCanvas { width: 100%; height: 160px; background:#0f172a; border-radius: 8px; }
+.capture { display:flex; gap:8px; }
